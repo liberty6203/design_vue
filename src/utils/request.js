@@ -1,10 +1,21 @@
 import axios from 'axios';
+import Qs from 'qs'
+import router from '../router/index.js'
+import { Message } from 'element-ui'
 
 const service = axios.create({
-    // process.env.NODE_ENV === 'development' 来判断是否开发环境
-    // easy-mock服务挂了，暂时不使用了
-    // baseURL: 'https://www.easy-mock.com/mock/592501a391470c0ac1fab128',
-    timeout: 5000
+    // baseURL: 'http://localhost:3000/mock/11',
+    // baseURL: 'http://49.233.81.70:8080/design',
+    baseURL: 'http://localhost:8888/',
+    // baseURL: 'http://49.233.81.70:8888/',
+    timeout: 5000,
+	headers:{
+		'Content-Type':'application/x-www-form-urlencoded'
+	},
+	transformRequest:[function(data){
+		return Qs.stringify(data)
+	}],
+	withCredentials:true
 });
 
 service.interceptors.request.use(
@@ -12,7 +23,6 @@ service.interceptors.request.use(
         return config;
     },
     error => {
-        console.log(error);
         return Promise.reject();
     }
 );
@@ -20,6 +30,14 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     response => {
         if (response.status === 200) {
+			
+			switch(response.data.status){
+				case 200: return response.data;
+				case 401: Message.error("请先登录"); router.replace({path:'/login'});return;
+				case 403: router.replace({path:'/403'});return;
+			}
+			
+			
             return response.data;
         } else {
             Promise.reject();

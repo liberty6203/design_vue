@@ -61,95 +61,125 @@ export default {
                     index: 'dashboard',
                     title: '系统首页'
                 },
-                {
-                    icon: 'el-icon-lx-cascades',
-                    index: 'table',
-                    title: '基础表格'
-                },
-                {
-                    icon: 'el-icon-lx-copy',
-                    index: 'tabs',
-                    title: 'tab选项卡'
-                },
-                {
-                    icon: 'el-icon-lx-calendar',
-                    index: '3',
-                    title: '表单相关',
-                    subs: [
-                        {
-                            index: 'form',
-                            title: '基本表单'
-                        },
-                        {
-                            index: '3-2',
-                            title: '三级菜单',
-                            subs: [
-                                {
-                                    index: 'editor',
-                                    title: '富文本编辑器'
-                                },
-                                {
-                                    index: 'markdown',
-                                    title: 'markdown编辑器'
-                                }
-                            ]
-                        },
-                        {
-                            index: 'upload',
-                            title: '文件上传'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-lx-emoji',
-                    index: 'icon',
-                    title: '自定义图标'
-                },
-                {
-                    icon: 'el-icon-pie-chart',
-                    index: 'charts',
-                    title: 'schart图表'
-                },
-                {
-                    icon: 'el-icon-rank',
-                    index: '6',
-                    title: '拖拽组件',
-                    subs: [
-                        {
-                            index: 'drag',
-                            title: '拖拽列表'
-                        },
-                        {
-                            index: 'dialog',
-                            title: '拖拽弹框'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-lx-global',
-                    index: 'i18n',
-                    title: '国际化功能'
-                },
-                {
-                    icon: 'el-icon-lx-warn',
-                    index: '7',
-                    title: '错误处理',
-                    subs: [
-                        {
-                            index: 'permission',
-                            title: '权限测试'
-                        },
-                        {
-                            index: '404',
-                            title: '404页面'
-                        }
-                    ]
-                },
-                {
-                    icon: 'el-icon-lx-redpacket_fill',
-                    index: '/donate',
-                    title: '支持作者'
-                }
+				{
+				    icon: 'el-icon-lx-calendar',
+				    title: '论文模块',
+					index: '1',
+				    subs: [
+				        {
+				            icon: 'el-icon-lx-searchlist',
+				            index: 'treatiseAudit',
+				            title: '论文审核'
+				        },
+				        {
+				            icon: 'el-icon-lx-edit',
+				            index: 'treatiseSubmit',
+				            title: '论文申报'
+				        },
+				        {
+				            icon: 'el-icon-lx-sort',
+				            index: 'treatiseList',
+				            title: '论文列表'
+				        },
+				    ]
+				},
+				{
+				    icon: 'el-icon-lx-news',
+				    index: '2',
+				    title: '项目模块',
+				    subs: [
+						{
+							icon: 'el-icon-lx-searchlist',
+							index: 'projectAudit',
+							title: '项目审核'
+						},
+						{
+							icon: 'el-icon-lx-edit',
+							index: 'projectSubmit',
+							title: '项目申报'
+						},
+						{
+							icon: 'el-icon-lx-sort',
+							index: 'projectList',
+							title: '项目列表'
+						},
+				    ]
+				},
+				{
+				    icon: 'el-icon-lx-read',
+				    title: '论著模块',
+					index: '3',
+				    subs: [
+						{
+							icon: 'el-icon-lx-searchlist',
+							index: 'bookAudit',
+							title: '论著审核'
+						},
+						{
+							icon: 'el-icon-lx-edit',
+							index: 'bookSubmit',
+							title: '论著申报'
+						},
+						{
+							icon: 'el-icon-lx-sort',
+							index: 'bookList',
+							title: '论著列表'
+						},
+				    ]
+				},
+				{
+				    icon: 'el-icon-s-data',
+				    title: '积分模块',
+					index: '4',
+				    subs: [
+				        {
+				            icon: 'el-icon-lx-searchlist',
+				            index: 'personScore',
+				            title: '积分查询'
+				        },
+						{
+						    icon: 'el-icon-lx-searchlist',
+						    index: 'schoolScore',
+						    title: '全校统计'
+						},
+				        
+				    ]
+				},
+				{
+				    icon: 'el-icon-user',
+				    title: '用户模块',
+					index: '5',
+				    subs: [
+				        {
+				            icon: 'el-icon-lx-searchlist',
+				            index: 'modifyPassword',
+				            title: '修改密码'
+				        },
+						{
+						    icon: 'el-icon-lx-searchlist',
+						    index: 'userList',
+						    title: '用户列表'
+						},
+				        
+				    ]
+				},
+                // {
+                //     icon: 'el-icon-lx-calendar',
+                //     title: '数据模块',
+                // 	index: '5',
+                //     subs: [
+                //         {
+                //             icon: 'el-icon-lx-searchlist',
+                //             index: 'treatiseImport',
+                //             title: '论文导入'
+                //         },
+                        
+                //     ]
+                // },
+				
+
+
+				
             ]
         };
     },

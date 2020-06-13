@@ -1,17 +1,17 @@
 <template>
     <div class="login-wrap">
         <div class="ms-login">
-            <div class="ms-title">后台管理系统</div>
+            <div class="ms-title">科研信息采集系统</div>
             <el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
-                <el-form-item prop="username">
-                    <el-input v-model="param.username" placeholder="username">
+                <el-form-item prop="idcard">
+                    <el-input v-model="param.idcard" placeholder="身份证号码">
                         <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
                     <el-input
                         type="password"
-                        placeholder="password"
+                        placeholder="密码"
                         v-model="param.password"
                         @keyup.enter.native="submitForm()"
                     >
@@ -21,22 +21,24 @@
                 <div class="login-btn">
                     <el-button type="primary" @click="submitForm()">登录</el-button>
                 </div>
-                <p class="login-tips">Tips : 用户名和密码随便填。</p>
+             <!--   <p class="login-tips">Tips : 用户名和密码随便填。</p> -->
             </el-form>
         </div>
     </div>
 </template>
 
 <script>
+import {login} from '../../api/login.js'
+import formatter from '../../utils/formatter.js'
 export default {
     data: function() {
         return {
             param: {
-                username: 'admin',
-                password: '123123',
+                idcard: '',
+                password: '',
             },
             rules: {
-                username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                idcard: [{ required: true, message: '请输入用户名(身份证号)', trigger: 'blur' }],
                 password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
             },
         };
@@ -45,9 +47,25 @@ export default {
         submitForm() {
             this.$refs.login.validate(valid => {
                 if (valid) {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/');
+					var that = this;
+					login(this.param).then(res => {
+						console.log(res);
+						if(res.status === 200){
+							that.$message.success('登录成功');
+							localStorage.setItem('username', res.data.name);
+							localStorage.setItem('pId', res.data.id);
+							localStorage.setItem('role',  formatter.roleFormat(res.data.role) );
+							
+							that.$router.push('/')
+						}else{
+							that.$message.error(res.msg)
+						}
+						
+					},err=> {
+						console.log(err)
+					}).catch(e=>{
+						console.log(e)
+					})
                 } else {
                     this.$message.error('请输入账号和密码');
                     console.log('error submit!!');

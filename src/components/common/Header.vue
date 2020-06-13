@@ -5,7 +5,7 @@
             <i v-if="!collapse" class="el-icon-s-fold"></i>
             <i v-else class="el-icon-s-unfold"></i>
         </div>
-        <div class="logo">后台管理系统</div>
+        <div class="logo">科研信息采集系统</div>
         <div class="header-right">
             <div class="header-user-con">
                 <!-- 全屏显示 -->
@@ -14,19 +14,7 @@
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
                 </div>
-                <!-- 消息中心 -->
-                <div class="btn-bell">
-                    <el-tooltip
-                        effect="dark"
-                        :content="message?`有${message}条未读消息`:`消息中心`"
-                        placement="bottom"
-                    >
-                        <router-link to="/tabs">
-                            <i class="el-icon-bell"></i>
-                        </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
-                </div>
+               
                 <!-- 用户头像 -->
                 <div class="user-avator">
                     <img src="../../assets/img/img.jpg" />
@@ -38,9 +26,7 @@
                         <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
-                        <a href="https://github.com/lin-xin/vue-manage-system" target="_blank">
-                            <el-dropdown-item>项目仓库</el-dropdown-item>
-                        </a>
+                        <el-dropdown-item divided command="modifyPassword">修改密码</el-dropdown-item>
                         <el-dropdown-item divided command="loginout">退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -50,18 +36,19 @@
 </template>
 <script>
 import bus from '../common/bus';
+import {logout} from '../../api/header.js'
 export default {
     data() {
         return {
             collapse: false,
             fullscreen: false,
-            name: 'linxin',
+            name: 'username',
             message: 2
         };
     },
     computed: {
         username() {
-            let username = localStorage.getItem('ms_username');
+            let username = localStorage.getItem('username');
             return username ? username : this.name;
         }
     },
@@ -69,9 +56,19 @@ export default {
         // 用户名下拉菜单选择事件
         handleCommand(command) {
             if (command == 'loginout') {
-                localStorage.removeItem('ms_username');
-                this.$router.push('/login');
-            }
+				var that = this;
+				logout()
+				.then(res=>{
+					localStorage.removeItem('username');
+					localStorage.removeItem('pId');
+					localStorage.removeItem('role');
+					that.$router.push('/login');
+				},err=>{
+					console.log(err)
+				})
+            }else if(command == 'modifyPassword'){
+				this.$router.push('/modifyPassword');
+			}
         },
         // 侧边栏折叠
         collapseChage() {
